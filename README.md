@@ -1,6 +1,10 @@
 # p5.CanvaSync
 p5.CanvasSync is a library designed to simplify real-time synchronization of p5.js canvases across different windows or tabs. This library allows you to easily send and receive pixel data from one canvas to another, enabling seamless synchronization between multiple clients.
 
+https://github.com/user-attachments/assets/d9383eef-162d-4e62-8239-b3e4bf82b4c5
+
+
+
 ## Features
 * Real-time transmission and reception of p5.js canvas pixel data
 * Simple API for setting up the sender and receiver sides
