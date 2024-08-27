@@ -55,8 +55,8 @@ function draw() {
 
 ## Example
 ### simple
- * Sender: 
- * Receiver:
+ * Sender: https://tetsuakibaba.github.io/p5.CanvaSync/examples/simple/sender.html
+ * Receiver:https://tetsuakibaba.github.io/p5.CanvaSync/examples/simple/receiver.html
 
 ## Method Descriptions
 `constructor(channelName)`
