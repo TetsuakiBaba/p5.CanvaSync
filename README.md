@@ -23,8 +23,8 @@ let sync;
 
 function setup() {
     createCanvas(400, 400);
-    sync = new p5CanvasSync('canvas_channel');
-    sync.initSender(this);
+    sync = new p5CanvasSync(this);
+    sync.initSender();
 }
 
 function draw() {
@@ -42,8 +42,8 @@ let sync;
 
 function setup() {
     createCanvas(400, 400);
-    sync = new p5CanvasSync('canvas_channel');
-    sync.initReceiver(this);
+    sync = new p5CanvasSync(this);
+    sync.initReceiver();
 
     sync.gotPixels = (pixelData) => {
         loadPixels();
@@ -63,26 +63,22 @@ function draw() {
  * Receiver:https://tetsuakibaba.github.io/p5.CanvaSync/examples/simple/receiver.html
 
 ## Method Descriptions
-`constructor(channelName)`
+`constructor(this)`
 Initializes the library.
 
-`channelName` (string): The name of the `BroadcastChannel`. Specify the name of the channel used for sending and receiving data.
-
-`initSender(canvas)`
+`initSender()`
 Initializes the canvas on the sender side.
-* `canvas (p5.Renderer)`: The p5.js canvas object created by createCanvas().
 
 `send()`
 Sends the current canvas pixel data. The transmitted data includes the canvas `width`, `height`, and `pixels`.
 
-`initReceiver(canvas)`
+`initReceiver()`
 Initializes the canvas on the receiver side.
- * `canvas (p5.Renderer)`: The p5.js canvas object created by createCanvas().
 
 `gotPixels(pixelData)`
 Callback function to process received pixel data. Users can override this function to implement custom processing.
 
-`pixelData (object):` The received pixel data object. It includes width, height, and pixels.
+ * `pixelData (object):` The received pixel data object. It includes `width`, `height`, and `pixels`.
 
 ## License
 This library is released under the MIT License.

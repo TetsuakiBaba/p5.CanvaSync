@@ -1,12 +1,12 @@
 class p5CanvasSync {
-    constructor(channelName) {
-        this.channelName = channelName;
-        this.channel = new BroadcastChannel(channelName);
+    constructor(canvas) {
+        this.canvas = canvas;
+        this.channelName = 'p5.CanvasSync';
+        this.channel = new BroadcastChannel(this.channelName);
     }
 
     // Sender の初期化
-    initSender(canvas) {
-        this.canvas = canvas;
+    initSender() {
         this.channel = new BroadcastChannel(this.channelName);
     }
 
@@ -23,8 +23,7 @@ class p5CanvasSync {
     }
 
     // Receiver の初期化
-    initReceiver(canvas) {
-        this.canvas = canvas;
+    initReceiver() {
         this.channel = new BroadcastChannel(this.channelName);
         this.channel.onmessage = (event) => {
             const pixelData = new Uint8ClampedArray(event.data.pixels);

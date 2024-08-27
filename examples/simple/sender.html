@@ -19,8 +19,8 @@
         let is_sender_active = true;
         function setup() {
             createCanvas(400, 225); // Create a canvas with a 16:9 aspect ratio
-            csync = new p5CanvasSync('canvas_channel');
-            csync.initSender(this);
+            csync = new p5CanvasSync(this);
+            csync.initSender();
         }
 
         function draw() {
