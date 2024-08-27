@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sender</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+</head>
+
+<body>
+    <h1>Sender</h1>
+    <script>
+
+        let channel = new BroadcastChannel('canvas_channel');
+        function setup() {
+            let c = createCanvas(400, 400 * 9 / 16); // Create a canvas with a 16:9 aspect ratio
+        }
+
+        function draw() {
+            // 画面の真ん中に現在を表示
+            background(100); // Clear the canvas
+            fill(255);
+            textSize(48);
+            textAlign(CENTER, CENTER);
+            let milliseconds = new Date().getMilliseconds();
+            let paddedMilliseconds = milliseconds.toString().padStart(3, '0');
+            text(`${new Date().toLocaleTimeString()}:${paddedMilliseconds}`,
+                width / 2, height / 2);
+
+            circle(mouseX, mouseY, 20); // Draw a circle at the mouse position
+            loadPixels();
+            const message = {
+                width: width,
+                height: height,
+                pixels: pixels
+            };
+            channel.postMessage(message);
+        }
+    </script>
+</body>
+
+</html>

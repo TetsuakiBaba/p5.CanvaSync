@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receiver</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+</head>
+
+<body>
+    <h1>Receiver</h1>
+    <script>
+        let channel = new BroadcastChannel('canvas_channel');
+        function setup() {
+            createCanvas(400, 400 * 9 / 16);
+            loadPixels(); // 初期ピクセルデータをロード
+        }
+
+        channel.onmessage = function (event) {
+            const pixelData = new Uint8ClampedArray(event.data.pixels); // 受信したデータをUint8ClampedArrayに変換
+
+            pixels.set(pixelData); // 直接pixelsにセット
+            updatePixels(); // 画面を更新
+        };
+    </script>
+</body>
+
+</html>

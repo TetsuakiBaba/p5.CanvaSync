@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sender</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.js"></script>
+    <script src="../../p5CanvaSync.js"></script>
+</head>
+
+<body>
+    <h1>Sender</h1>
+    <input type="checkbox" id="canvas_channel" onchange="is_sender_active=!is_sender_active;" checked>Send canvas
+    data</input>
+    <br>
+    <script>
+        let csync;
+        let is_sender_active = true;
+        function setup() {
+            createCanvas(400, 225); // Create a canvas with a 16:9 aspect ratio
+            csync = new p5CanvasSync('canvas_channel');
+            csync.initSender(this);
+        }
+
+        function draw() {
+            background(100); // Clear the canvas
+            fill(255);
+            textSize(48);
+            textAlign(CENTER, CENTER);
+            let milliseconds = new Date().getMilliseconds();
+            let paddedMilliseconds = milliseconds.toString().padStart(3, '0');
+            text(`${new Date().toLocaleTimeString()}:${paddedMilliseconds}`,
+                width / 2, height / 2);
+            circle(mouseX, mouseY, 20); // Draw a circle at the mouse position
+
+            if (is_sender_active) {
+                csync.send();
+            }
+
+        }
+    </script>
+</body>
+
+</html>

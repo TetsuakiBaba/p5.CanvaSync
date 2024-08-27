@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receiver</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.js"></script>
+    <script src="../../p5CanvaSync.js"></script>
+</head>
+
+<body>
+    <h1>Receiver</h1>
+    <script>
+        let csync;
+        function setup() {
+            createCanvas(400, 225);
+            csync = new p5CanvasSync('canvas_channel');
+            csync.initReceiver(this);
+            csync.gotPixels = function (data) {
+                loadPixels();
+                pixels.set(data.pixels);
+                // console.log(data.width, data.height);
+                updatePixels();
+            }
+        }
+
+    </script>
+</body>
+
+</html>
