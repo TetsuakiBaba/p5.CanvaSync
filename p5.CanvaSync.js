@@ -1,4 +1,4 @@
-class p5CanvasSync {
+class p5CanvaSync {
     constructor(canvas) {
         this.canvas = canvas;
         this.channelName = 'p5.CanvasSync';
