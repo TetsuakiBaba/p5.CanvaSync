@@ -16,13 +16,13 @@ https://github.com/user-attachments/assets/d9383eef-162d-4e62-8239-b3e4bf82b4c5
 
 ## Usage
 ### 1. Setting Up the Sender
-Use p5CanvasSync to send pixel data from your canvas.
+Use p5CanvaSync to send pixel data from your canvas.
 ```javascript
 let sync;
 
 function setup() {
     createCanvas(400, 400);
-    sync = new p5CanvasSync(this);
+    sync = new p5CanvaSync(this);
     sync.initSender();
 }
 
@@ -41,7 +41,7 @@ let sync;
 
 function setup() {
     createCanvas(400, 400);
-    sync = new p5CanvasSync(this);
+    sync = new p5CanvaSync(this);
     sync.initReceiver();
 
     sync.gotPixels = (pixelData) => {
