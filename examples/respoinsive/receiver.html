@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receiver</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.js"></script>
+    <script src="../../p5.CanvaSync.js"></script>
+</head>
+
+<body>
+    <h1>Receiver</h1>
+    <script>
+        let sync;
+
+        function setup() {
+            pixelDensity(1);
+            let c = createCanvas(1920, 1080);
+            c.style('width', '100%');
+            c.style('height', 'auto');
+
+            let g = createGraphics(1, 1);
+            sync = new p5GraphicSync(g);
+            sync.initReceiver();
+            sync.gotPixels = function (data) {
+                if (g.width !== data.width || g.height !== data.height) {
+                    g.resizeCanvas(data.width, data.height);
+                }
+                g.loadPixels();
+                g.pixels.set(data.pixels);
+                g.updatePixels();
+                image(g, 0, 0, width, height);
+            }
+        }
+
+        function draw() {
+        }
+
+    </script>
+</body>
+
+</html>

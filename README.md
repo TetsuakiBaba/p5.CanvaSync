@@ -15,7 +15,12 @@ https://github.com/user-attachments/assets/d9383eef-162d-4e62-8239-b3e4bf82b4c5
 ```
 
 ## Usage
-### 1. Setting Up the Sender
+> [!NOTE]
+> <ja>canvasがレスポンシブなアプリケーションを作成する場合は、p5CanvaSyncの代わりにp5GraphicSyncを利用してください。</ja>
+> <en>If you want to create a responsive application, use p5GraphicSync instead of p5CanvaSync.</en>
+
+### p5CanvaSync
+#### 1. Setting Up the Sender
 Use p5CanvaSync to send pixel data from your canvas.
 ```javascript
 let sync;
@@ -33,7 +38,7 @@ function draw() {
 }
 ```
 
-### 2. Setting Up the Receiver
+#### 2. Setting Up the Receiver
 Receive pixel data sent from the sender and process it using the gotPixels callback function.
 
 ```javascript
@@ -55,20 +60,74 @@ function draw() {
     // Typically, no drawing is done here, but you can add additional operations if needed
 }
 ```
+## p5GraphicSync
+
+#### 1. Setting Up the Sender
+```javascript
+let sync;
+let g;
+function setup() {
+    createCanvas(400, 400);
+    g = createGraphics(400, 400);
+    sync = new p5GraphicSync(g);
+    sync.initSender();
+}
+
+function draw() {
+    g.background(220);
+    g.ellipse(mouseX, mouseY, 50, 50);
+    sync.send();  // Send the canvas pixel data
+}
+```
+
+#### 2. Setting Up the Receiver
+Receive pixel data sent from the sender and process it using the gotPixels callback function.
+
+```javascript
+let sync;
+
+function setup() {
+    createCanvas(400, 400);
+    let g = createGraphics(400, 400);
+    sync = new p5GraphicSync(this);
+    sync.initReceiver();
+
+    sync.gotPixels = (pixelData) => {
+        if (g.width !== data.width || g.height !== data.height) {
+            g.resizeCanvas(data.width, data.height);
+        }
+        g.loadPixels();
+        g.pixels.set(data.pixels);
+        g.updatePixels();
+        image(g, 0, 0, width, height);
+    };
+}
+
+function draw() {
+    // Typically, no drawing is done here, but you can add additional operations if needed
+}
+```
+
 
 ## Example
-### simple
+### simple, using p5.CanvaSync
  * Sender: https://tetsuakibaba.github.io/p5.CanvaSync/examples/simple/sender.html
  * Receiver:https://tetsuakibaba.github.io/p5.CanvaSync/examples/simple/receiver.html
+ ### responsive, using p5.GraphicSync
+  * Sender: https://tetsuakibaba.github.io/p5.CanvaSync/examples/responsive/sender.html
+ * Receiver:https://tetsuakibaba.github.io/p5.CanvaSync/examples/responsive/receiver.html
 
 ## API
-p5CanvaSync provides the following methods:
+p5CanvaSync/p5GraphicSync provides the following methods:
 
-`constructor(p5())`
+`constructor(p5) - p5CanvaSync`
+
+`constructor(p5Graphics) - p5CanvaSync`
 
 Initializes the library with p5 element.
 ```javascript
 let sync = new p5CanvaSync(this);
+// or let sync = new p5GraphicSync(p5Graphics);
 ```
 
 `initSender()`
@@ -96,6 +155,8 @@ sync.initReceiver();
 
 Callback function to process received pixel data. Users can override this function to implement custom processing.
   * `pixelData (object):` The received pixel data object. It includes `width`, `height`, and `pixels`.
+
+`p5CanvaSync` Example:
 ```javascript
 sync.gotPixels = (pixelData) => {
     loadPixels();
@@ -104,6 +165,18 @@ sync.gotPixels = (pixelData) => {
 };
 ```
 
+`p5GraphicSync` Example:
+```javascript
+sync.gotPixels = (pixelData) => {
+    if (g.width !== pixelData.width || g.height !== pixelData.height) {
+        g.resizeCanvas(pixelData.width, pixelData.height);
+    }
+    g.loadPixels();
+    g.pixels.set(pixelData.pixels);
+    g.updatePixels();
+    image(g, 0, 0, width, height);
+};
+```
 
 ## License
 This library is released under the MIT License.
