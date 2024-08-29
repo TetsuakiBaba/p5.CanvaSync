@@ -120,7 +120,10 @@ function draw() {
 
  ### p5 Editor
   * https://editor.p5js.org/tetsuakibaba/sketches/vs_xiufUj
-  
+    
+  https://github.com/user-attachments/assets/dd0494cf-0bc5-4c87-946d-ce41bc64a3b9
+
+
 ## API
 p5CanvaSync/p5GraphicSync provides the following methods:
 
