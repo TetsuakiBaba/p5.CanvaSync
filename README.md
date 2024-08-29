@@ -87,12 +87,13 @@ Receive pixel data sent from the sender and process it using the gotPixels callb
 let sync;
 
 function setup() {
+  pixelDensity(1);
     createCanvas(400, 400);
     let g = createGraphics(400, 400);
-    sync = new p5GraphicSync(this);
+    sync = new p5GraphicSync(g);
     sync.initReceiver();
 
-    sync.gotPixels = (pixelData) => {
+    sync.gotPixels = (data) => {
         if (g.width !== data.width || g.height !== data.height) {
             g.resizeCanvas(data.width, data.height);
         }
@@ -117,6 +118,9 @@ function draw() {
   * Sender: https://tetsuakibaba.github.io/p5.CanvaSync/examples/responsive/sender.html
  * Receiver:https://tetsuakibaba.github.io/p5.CanvaSync/examples/responsive/receiver.html
 
+ ### p5 Editor
+  * https://editor.p5js.org/tetsuakibaba/sketches/vs_xiufUj
+  
 ## API
 p5CanvaSync/p5GraphicSync provides the following methods:
 
